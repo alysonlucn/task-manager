@@ -10,6 +10,5 @@ export const AppDataSource = new DataSource({
   database: 'task_manager',
   synchronize: false,
   logging: false,
-  entities: [],
-  migrations: [],
+  entities: ['src/modules/**/entities/*.ts'],
 });
