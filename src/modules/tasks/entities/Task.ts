@@ -1,21 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('tasks')
 export class Task {
-    @PrimaryGeneratedColumn('uuid')
-    id?: string;
+  @PrimaryColumn('uuid')
+  id: string;
 
-    @Column()
-    title?: string;
+  @Column()
+  title: string;
 
-    @Column()
-    completed?: boolean;
-    
-    @CreateDateColumn()
-    createdAt?: Date;
+  @Column({ nullable: true })
+  description?: string;
 
-    @UpdateDateColumn()
-    updatedAt?: Date;
+  @Column({ name: 'is_completed', default: false })
+  is_completed: boolean;
 
-    
+  @CreateDateColumn({ name: 'created_at' })
+  created_at: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updated_at: Date;
 }

@@ -1,4 +1,4 @@
-import app from './shared/infra/http/app';
+import { app } from './shared/infra/http/app';
 import { initializeDatabase } from './shared/infra/database';
 
 const PORT = 3333;
