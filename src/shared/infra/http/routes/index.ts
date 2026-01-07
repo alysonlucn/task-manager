@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import { CreateTaskController } from '../../../../modules/tasks/controllers/CreateTaskController';
-import { HealthController } from '../../../../modules/health/controllers/HealthController';
+import { healthRoutes } from './health.routes';
+import { tasksRoutes } from './tasks.routes';
 
 const routes = Router();
 
-const createTaskController = new CreateTaskController();
-const healthController = new HealthController();
-
-routes.get('/health', healthController.index);
-routes.post('/tasks', createTaskController.handle);
+routes.use(healthRoutes);
+routes.use(tasksRoutes);
 
 export { routes };

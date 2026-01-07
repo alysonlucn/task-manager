@@ -9,20 +9,20 @@ import {
 @Entity('tasks')
 export class Task {
   @PrimaryColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column()
-  title: string;
+  title?: string;
 
   @Column({ nullable: true })
   description?: string;
 
   @Column({ name: 'is_completed', default: false })
-  is_completed: boolean;
+  is_completed?: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
-  created_at: Date;
+  created_at?: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date;
+  updated_at?: Date;
 }

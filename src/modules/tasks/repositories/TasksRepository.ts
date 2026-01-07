@@ -24,4 +24,9 @@ export class TasksRepository {
 
     return task;
   }
+
+  async findAll(): Promise<Task[]> {
+    return this.repository.find();
+  }
+
 }

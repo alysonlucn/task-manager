@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { TasksRepository } from '../repositories/TasksRepository';
-import { CreateTaskUseCase } from '../useCases/createTask/CreateTaskUseCase';
+import { TasksRepository } from '../../repositories/TasksRepository';
+import { CreateTaskUseCase } from './CreateTaskUseCase';
 
 export class CreateTaskController {
   async handle(request: Request, response: Response): Promise<Response> {
