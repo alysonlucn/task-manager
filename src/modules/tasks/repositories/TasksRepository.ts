@@ -35,4 +35,8 @@ export class TasksRepository implements ITasksRepository {
   async findAll(): Promise<Task[]> {
     return this.repository.find();
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
 }
