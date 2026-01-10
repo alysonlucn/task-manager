@@ -1,4 +1,5 @@
 import { ITasksRepository } from '../../repositories/ITasksRepository';
+import { Task } from '../../entities/Task';
 
 interface IRequest {
   id: string;
@@ -9,18 +10,25 @@ interface IRequest {
 export class UpdateTaskUseCase {
   constructor(private tasksRepository: ITasksRepository) {}
 
-  async execute({ id, title, description }: IRequest) {
+  async execute({ id, title, description }: IRequest): Promise<Task> {
     const task = await this.tasksRepository.findById(id);
 
     if (!task) {
       throw new Error('Task not found');
     }
 
-    task.title = title ?? task.title;
-    task.description = description ?? task.description;
+    if (title !== undefined && title.trim().length === 0) {
+      throw new Error('Title cannot be empty');
+    }
 
-    await this.tasksRepository.save(task);
+    if (title !== undefined) {
+      task.title = title;
+    }
 
-    return task;
+    if (description !== undefined) {
+      task.description = description;
+    }
+
+    return this.tasksRepository.save(task);
   }
 }
