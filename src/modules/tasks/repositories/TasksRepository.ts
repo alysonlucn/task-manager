@@ -1,5 +1,4 @@
 import { Repository } from 'typeorm';
-
 import { AppDataSource } from '../../../shared/infra/database/dataSource';
 import { Task } from '../entities/Task';
 import { ITasksRepository } from './ITasksRepository';

@@ -17,7 +17,6 @@ export class CreateTaskUseCase {
     const task = new Task();
     task.title = title;
     task.description = description;
-    task.is_completed = false;
 
     return this.tasksRepository.create(task);
   }

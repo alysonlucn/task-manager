@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity('tasks')
 export class Task {
@@ -25,4 +26,11 @@ export class Task {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updated_at!: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuidv4();
+      this.is_completed = false;
+    }
+  }
 }
