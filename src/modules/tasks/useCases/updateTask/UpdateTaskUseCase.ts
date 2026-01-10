@@ -16,13 +16,8 @@ export class UpdateTaskUseCase {
       throw new Error('Task not found');
     }
 
-    if (title !== undefined) {
-      task.title = title;
-    }
-
-    if (description !== undefined) {
-      task.description = description;
-    }
+    task.title = title ?? task.title;
+    task.description = description ?? task.description;
 
     await this.tasksRepository.save(task);
 

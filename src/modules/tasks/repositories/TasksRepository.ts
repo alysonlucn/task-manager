@@ -25,7 +25,7 @@ export class TasksRepository implements ITasksRepository {
   }
 
   async findById(id: string): Promise<Task | null> {
-    return this.repository.findOneBy({ id });
+    return this.repository.findOne({ where: { id } });
   }
 
   async save(task: Task): Promise<Task> {

@@ -4,18 +4,26 @@ import { UpdateTaskUseCase } from './UpdateTaskUseCase';
 
 export class UpdateTaskController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-    const { title, description } = req.body;
+    try {
+      const { id } = req.params;
+      const { title, description } = req.body;
+      
+      const tasksRepository = new TasksRepository();
+      const updateTaskUseCase = new UpdateTaskUseCase(tasksRepository);
 
-    const tasksRepository = new TasksRepository();
-    const updateTaskUseCase = new UpdateTaskUseCase(tasksRepository);
+      const task = await updateTaskUseCase.execute({
+        id,
+        title,
+        description,
+      });
 
-    const task = await updateTaskUseCase.execute({
-      id,
-      title,
-      description,
-    });
+      return res.json(task);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
+      }
 
-    return res.json(task);
+      return res.status(500).json({ message: 'Unexpected error' });
+    }
   }
 }
