@@ -1,4 +1,5 @@
 import { ITasksRepository } from '../../repositories/ITasksRepository';
+import { Task } from '../../entities/Task';
 
 export class DeleteTaskUseCase {
   constructor(
@@ -12,6 +13,6 @@ export class DeleteTaskUseCase {
       throw new Error('Task not found');
     }
 
-    await this.tasksRepository.delete(id);
+    await this.tasksRepository.delete(task);
   }
 }

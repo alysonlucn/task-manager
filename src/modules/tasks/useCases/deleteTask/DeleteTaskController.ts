@@ -14,7 +14,7 @@ export class DeleteTaskController {
 
       return response.status(204).send();
     } catch (err) {
-        if (err instanceof Error) {
+      if (err instanceof Error && err.message === 'Task not found') {
         return response.status(404).json({ message: err.message });
       }
 

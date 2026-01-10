@@ -1,9 +1,8 @@
 import { Repository } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 
 import { AppDataSource } from '../../../shared/infra/database/dataSource';
 import { Task } from '../entities/Task';
-import { ICreateTaskDTO, ITasksRepository } from './ITasksRepository';
+import { ITasksRepository } from './ITasksRepository';
 
 export class TasksRepository implements ITasksRepository {
   private repository: Repository<Task>;
@@ -12,31 +11,24 @@ export class TasksRepository implements ITasksRepository {
     this.repository = AppDataSource.getRepository(Task);
   }
 
-  async create({ title, description }: ICreateTaskDTO): Promise<Task> {
-    const task = this.repository.create({
-      id: uuidv4(),
-      title,
-      description,
-      is_completed: false,
-    });
-
-    await this.repository.save(task);
-    return task;
+  async create(task: Task): Promise<Task> {
+    const taskCreated = this.repository.create(task);
+    return this.repository.save(taskCreated);
   }
 
   async findById(id: string): Promise<Task | null> {
     return this.repository.findOne({ where: { id } });
   }
 
-  async save(task: Task): Promise<Task> {
-    return this.repository.save(task);
-  }
-
   async findAll(): Promise<Task[]> {
     return this.repository.find();
   }
 
-  async delete(id: string): Promise<void> {
-    await this.repository.delete(id);
+  async save(task: Task): Promise<Task> {
+    return this.repository.save(task);
+  }
+
+  async delete(task: Task): Promise<void> {
+    await this.repository.remove(task);
   }
 }
