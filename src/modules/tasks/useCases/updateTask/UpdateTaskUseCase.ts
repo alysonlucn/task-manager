@@ -1,5 +1,6 @@
 import { ITasksRepository } from '../../repositories/ITasksRepository';
 import { Task } from '../../entities/Task';
+import { AppError } from '../../../../shared/errors/AppError';
 
 interface IRequest {
   id: string;
@@ -14,11 +15,11 @@ export class UpdateTaskUseCase {
     const task = await this.tasksRepository.findById(id);
 
     if (!task) {
-      throw new Error('Task not found');
+      throw new AppError('Task not found', 404);
     }
 
     if (title !== undefined && title.trim().length === 0) {
-      throw new Error('Title cannot be empty');
+      throw new AppError('Title cannot be empty', 404);
     }
 
     if (title !== undefined) {

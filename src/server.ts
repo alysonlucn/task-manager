@@ -1,14 +1,17 @@
+import 'reflect-metadata';
+import 'express-async-errors';
+
+import { AppDataSource } from './shared/infra/database/dataSource';
 import { app } from './shared/infra/http/app';
-import { initializeDatabase } from './shared/infra/database';
 
-const PORT = 3333;
-
-initializeDatabase()
+AppDataSource.initialize()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    console.log('Database connected');
+
+    app.listen(3333, () => {
+      console.log('Server running on port 3333');
     });
   })
-  .catch(error => {
-    console.error('Database connection error', error);
+  .catch(err => {
+    console.error('Database connection error', err);
   });

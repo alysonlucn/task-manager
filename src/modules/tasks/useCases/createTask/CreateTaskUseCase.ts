@@ -1,5 +1,6 @@
 import { Task } from '../../entities/Task';
 import { ITasksRepository } from '../../repositories/ITasksRepository';
+import { AppError } from '../../../../shared/errors/AppError';
 
 interface IRequest {
   title: string;
@@ -11,7 +12,7 @@ export class CreateTaskUseCase {
 
   async execute({ title, description }: IRequest): Promise<Task> {
     if (!title || title.trim().length === 0) {
-      throw new Error('Title is required');
+      throw new AppError('Title is required', 404);
     }
 
     const task = new Task();
