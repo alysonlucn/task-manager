@@ -3,7 +3,8 @@ import { CreateTaskController } from '../../../../modules/tasks/useCases/createT
 import { ListTasksController } from '../../../../modules/tasks/useCases/listTasks/ListTasksController';
 import { UpdateTaskController } from '../../../../modules/tasks/useCases/updateTask/UpdateTaskController';
 import { DeleteTaskController } from '../../../../modules/tasks/useCases/deleteTask/DeleteTaskController';
-import { FindTaskByIdController } from '../../../../modules/tasks/useCases/FindTaskById/FindTaskByIdController';
+import { FindTaskByIdController } from '../../../../modules/tasks/useCases/findTaskById/FindTaskByIdController';
+import { ToggleTaskCompletionController } from '../../../../modules/tasks/useCases/toggleTaskCompletion/ToggleTaskCompletionController';
 
 const tasksRoutes = Router();
 
@@ -12,11 +13,13 @@ const listTasksController = new ListTasksController();
 const updateTaskController = new UpdateTaskController();
 const deleteTaskController = new DeleteTaskController();
 const findTaskByIdController = new FindTaskByIdController();
+const toggleTaskCompletionController = new ToggleTaskCompletionController();
 
 tasksRoutes.post('/tasks', createTaskController.handle);
 tasksRoutes.get('/tasks', listTasksController.handle);
 tasksRoutes.put('/tasks/:id', updateTaskController.handle);
 tasksRoutes.delete('/tasks/:id', deleteTaskController.handle);
 tasksRoutes.get('/tasks/:id', findTaskByIdController.handle);
+tasksRoutes.patch('/tasks/:id/complete', toggleTaskCompletionController.handle);
 
 export { tasksRoutes };
