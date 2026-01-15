@@ -6,6 +6,7 @@ export class UpdateTaskController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const { title, description } = req.body;
+    const { id: userId } = req.user;
 
     const tasksRepository = new TasksRepository();
     const updateTaskUseCase = new UpdateTaskUseCase(tasksRepository);
@@ -14,6 +15,7 @@ export class UpdateTaskController {
       id,
       title,
       description,
+      user_id: userId,
     });
 
     return res.json(task);

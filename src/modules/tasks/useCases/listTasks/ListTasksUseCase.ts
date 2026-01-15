@@ -1,10 +1,10 @@
-import { TasksRepository } from '../../repositories/TasksRepository';
+import { ITasksRepository } from '../../repositories/ITasksRepository';
 import { Task } from '../../entities/Task';
 
 export class ListTasksUseCase {
-  constructor(private tasksRepository: TasksRepository) {}
+  constructor(private tasksRepository: ITasksRepository) {}
 
-  async execute(): Promise<Task[]> {
-    return this.tasksRepository.findAll();
+  async execute(user_id: string): Promise<Task[]> {
+    return this.tasksRepository.findAllByUser(user_id);
   }
 }

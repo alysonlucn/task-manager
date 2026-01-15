@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
+import { Task } from '../../tasks/entities/Task';
 
 @Entity('users')
 export class User {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id?: string;
 
   @Column()
@@ -18,7 +20,10 @@ export class User {
   email?: string;
 
   @Column()
-  password?: string;
+  password!: string;
+
+  @OneToMany(() => Task, task => task.user)
+  tasks!: Task[];
 
   @CreateDateColumn()
   created_at?: Date;

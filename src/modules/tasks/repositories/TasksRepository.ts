@@ -19,8 +19,10 @@ export class TasksRepository implements ITasksRepository {
     return this.repository.findOne({ where: { id } });
   }
 
-  async findAll(): Promise<Task[]> {
-    return this.repository.find();
+  async findAllByUser(user_id: string): Promise<Task[]> {
+    return this.repository.find({
+      where: { user_id },
+    });
   }
 
   async save(task: Task): Promise<Task> {

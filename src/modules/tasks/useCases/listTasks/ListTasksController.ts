@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import { ListTasksUseCase } from './ListTasksUseCase';
 import { TasksRepository } from '../../repositories/TasksRepository';
+import { ListTasksUseCase } from './ListTasksUseCase';
 
 export class ListTasksController {
-  async handle(req: Request, res: Response): Promise<Response> {
-    const useCase = new ListTasksUseCase(
-      new TasksRepository()
-    );
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { id: userId } = request.user;
 
-    const tasks = await useCase.execute();
+    const tasksRepository = new TasksRepository();
+    const listTasksUseCase = new ListTasksUseCase(tasksRepository);
 
-    return res.json(tasks);
+    const tasks = await listTasksUseCase.execute(userId);
+
+    return response.json(tasks);
   }
 }

@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
-import { TasksRepository } from '../../repositories/TasksRepository';
 import { DeleteTaskUseCase } from './DeleteTaskUseCase';
+import { TasksRepository } from '../../repositories/TasksRepository';
 
 export class DeleteTaskController {
-  async handle(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { id: userId } = request.user;
 
     const tasksRepository = new TasksRepository();
     const deleteTaskUseCase = new DeleteTaskUseCase(tasksRepository);
 
-    await deleteTaskUseCase.execute(id);
+    await deleteTaskUseCase.execute(id, userId);
 
-    return res.status(204).send();
+    return response.status(204).send();
   }
 }
