@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   username: 'postgres',
   password: 'postgres',
   database: 'task_manager',
-  synchronize: false,
+  synchronize: true,
   logging: false,
   entities: ['src/modules/**/entities/*.ts'],
 });

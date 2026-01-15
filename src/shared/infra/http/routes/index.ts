@@ -6,5 +6,6 @@ const routes = Router();
 
 routes.use(healthRoutes);
 routes.use(tasksRoutes);
+routes.use('/users', require('./users.routes').usersRoutes);
 
 export { routes };
